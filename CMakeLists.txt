@@ -150,6 +150,22 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+#check if dependencies are downloaded
+
+# Find Python Interpreter
+find_package(PythonInterp 3 REQUIRED)
+
+# Ensure python-telegram-bot is installed
+execute_process(
+  COMMAND ${PYTHON_EXECUTABLE} -m pip show python-telegram-bot
+  RESULT_VARIABLE _telegram_bot_installed
+  OUTPUT_QUIET
+  ERROR_QUIET
+)
+if(_telegram_bot_installed)
+  message(FATAL_ERROR "python-telegram-bot not found. Please install it using pip.")
+endif()
+
 #############
 ## Install ##
 #############
