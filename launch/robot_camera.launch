@@ -1,0 +1,6 @@
+<launch>
+    
+    <rosparam file="$(find telegram_bot)/config/settings.yaml" command="load" />
+    <rosparam file="$(find telegram_bot)/config/token.yaml" command="load" />
+    <node pkg="telegram_bot" type="camera.py" name="telegram_bot" output="screen"/>
+</launch>

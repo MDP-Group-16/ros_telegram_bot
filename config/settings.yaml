@@ -1,0 +1,3 @@
+telegram:
+  camera_topic: '/camera/color/image_raw'
+  battery_topic: '/mirte/power/power_watcher'
