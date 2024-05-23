@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   cv_bridge
+  video_stream_opencv
 )
 
 ## System dependencies are found with CMake's conventions
@@ -150,6 +151,7 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
 
 #check if dependencies are downloaded
 
