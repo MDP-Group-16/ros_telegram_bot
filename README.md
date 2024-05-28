@@ -7,6 +7,7 @@ cd ~/catkin_ws/src
 git clone https://github.com/MDP-Group-16/ros_telegram_bot
 sudo pip install python-telegram-bot --upgrade
 cd ~/catkin_ws
+rosdep install --from-paths ./src/ --ignore-packages-from-source --rosdistro noetic -y
 catkin_make
 source devel/setup.bash
 ```
