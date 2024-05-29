@@ -1,5 +1,13 @@
 # ros_telegram_bot
-A telegram bot made for ros
+A telegram bot made for ros. 
+The Mirte launch is made for the Mirte robot. More information about Mirte can be found [here](https://www.mirte.org), the Master version is not yet released outside of the course.
+
+Current features for the Mirte robot:
+- [x] Show battery percentage
+- [x] Show camera image
+
+> :warning: **Warning** 
+> This project is still in development and is not yet ready for production use. However, support and pull requests are welcome.
 
 ## Download
 ```bash
@@ -26,3 +34,23 @@ roslaunch telegram_bot webcam_camera.launch
 roslaunch telegram_bot robot_camera.launch
 roslaunch telegram_bot mirte.launch
 ```
+
+## Course Usage
+
+This project is developed as part of the TU-Delft course `RO47007 Multidisciplinary Project 2023/24` by group 16. However, while this project is open source and can be used by anyone. Due to the nature of the project and course development, usage comes with the following conditions and social contract.  
+
+- **Attribution**: If you use this project is used in your project, you must attribute the original authors. This means that in documentation and presentation you must mention the original authors.
+- **Credit**: Any contribution to this project you will be credited in the project documentation and presentation of the original authors. Credit will only be given if merged into the main branch. And of significant `Meaningful contribution`. If you have any other ideas, please let us know. Contributors will be mentioned in the [Contributors](#contributors) section of the documentation.
+
+This is to ensure that the original authors and contributors are credited for their work. While following the condition of unique work and plagiarism for the course.
+
+
+## Contributors
+
+<table style="border:0px">
+  <tbody>
+    <tr style="border:0px">
+      <td align="center" valign="top" width="14.28%" style="border:0px"><a href="https://github.com/nickdubbel"><img src="https://avatars.githubusercontent.com/u/23498728?v=4" width="100px;" alt="Nick"/><br /><sub><b>Nick</b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
