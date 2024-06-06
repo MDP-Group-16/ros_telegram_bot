@@ -15,6 +15,10 @@ import threading
 import rostopic
 import asyncio
 
+# sound
+from sound_play.msg import SoundRequest
+from sound_play.libsoundplay import SoundClient
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -45,6 +49,11 @@ class TelegramBot(object):
         self.progress_sub = rospy.Subscriber(progress_topic, Float32, self.progress_callback)
         self.progress_reached = False
 
+        self.soundhandle = SoundClient()
+        rospy.sleep(1)
+        self.voice = 'voice_kal_diphone'
+        self.volume = 1.0
+
         # Start Telegram bot
         self.application.run_polling(allowed_updates=Update.ALL_TYPES)
 
@@ -54,9 +63,12 @@ class TelegramBot(object):
             "You can use the following commands:\n"
             "- 'picture' or 'camera': Get a picture from the robot's camera.\n"
             "- 'battery' or 'power': Get the current battery status.\n"
-            "- 'topic <topic_name>': Get the latest message from the specified ROS topic.\n"
             "- 'map': Get the current map as an image.\n"
+            "- 'progress': Get the current progress of the robot.\n"
+            "- 'say <text>': Make the robot say something.\n"
+            "- 'topic <topic_name>': Get the latest message from the specified ROS topic.\n"
             "- You will receive a notification when the progress reaches 100%.\n"
+
         )
         await update.message.reply_text(welcome_message)
 
@@ -160,6 +172,11 @@ class TelegramBot(object):
                 await update.message.reply_text(f"Latest message from {topic_name}:\n{topic_msg}")
             else:
                 await update.message.reply_text(f"Sorry, I couldn't retrieve the message from {topic_name}.")
+
+        elif text.startswith('say '):
+            say_text = text.split('say ')[1].strip()
+            self.soundhandle.say(say_text, self.voice, self.volume)
+            await update.message.reply_text("Saying: " + say_text)
     
         elif 'picture' in text or 'camera' in text:
             img_file_path = self.get_image()

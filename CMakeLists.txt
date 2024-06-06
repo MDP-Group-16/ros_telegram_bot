@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   cv_bridge
   video_stream_opencv
+  sound_play
 )
 
 ## System dependencies are found with CMake's conventions
