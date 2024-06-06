@@ -7,7 +7,7 @@ import logging
 import rospy
 from sensor_msgs.msg import Image, BatteryState
 from nav_msgs.msg import OccupancyGrid
-from std_msgs.msg import Float32
+from std_msgs.msg import Float32 , Int64
 from cv_bridge import CvBridge, CvBridgeError
 import cv2
 import numpy as np
@@ -49,6 +49,9 @@ class TelegramBot(object):
         self.progress_sub = rospy.Subscriber(progress_topic, Float32, self.progress_callback)
         self.progress_reached = False
 
+        #  ros publisher
+        self.prefered_state_pub = rospy.Publisher('/mirte/prefered_state', Int64, queue_size=10)
+
         self.soundhandle = SoundClient()
         rospy.sleep(1)
         self.voice = 'voice_kal_diphone'
@@ -61,6 +64,9 @@ class TelegramBot(object):
         welcome_message = (
             "Welcome to the ROS Telegram Bot!\n\n"
             "You can use the following commands:\n"
+            "- 'clean' or 'start': Start the cleaning process.\n"
+            "- 'stop': Stop the cleaning process.\n"
+            "- 'pause': Pause the cleaning process.\n"
             "- 'picture' or 'camera': Get a picture from the robot's camera.\n"
             "- 'battery' or 'power': Get the current battery status.\n"
             "- 'map': Get the current map as an image.\n"
@@ -177,6 +183,21 @@ class TelegramBot(object):
             say_text = text.split('say ')[1].strip()
             self.soundhandle.say(say_text, self.voice, self.volume)
             await update.message.reply_text("Saying: " + say_text)
+
+        elif 'clean' in text or 'start' in text:
+            rospy.loginfo("Cleaning...")
+            self.prefered_state_pub.publish(1)
+            await update.message.reply_text("Cleaning...")
+
+        elif 'stop' in text:
+            rospy.loginfo("Stop cleaning...")
+            self.prefered_state_pub.publish(0)
+            await update.message.reply_text("Stop cleaning...")
+
+        elif 'pause' in text:
+            rospy.loginfo("Pause cleaning...")
+            self.prefered_state_pub.publish(2)
+            await update.message.reply_text("Pause cleaning...")
     
         elif 'picture' in text or 'camera' in text:
             img_file_path = self.get_image()
