@@ -35,6 +35,26 @@ roslaunch telegram_bot robot_camera.launch
 roslaunch telegram_bot mirte.launch
 ```
 
+## commands usage
+You can use the following commands: 
+- 'start' or 'clean': Start the cleaning process.
+- 'stop': Stop the cleaning process.
+- 'pause': Pause the cleaning process.
+- 'picture' or 'camera': Get a picture from the robot's camera.
+- 'battery' or 'power': Get the current battery status.
+- 'map': Get the current map as an image.
+- 'progress': Get the current progress of the robot.
+- 'say <text>': Make the robot say something.
+- 'topic <topic_name>': Get the latest message from the specified ROS topic.
+- You will receive a notification when the progress reaches 100%.
+
+The start, stop and pause commands will change to the cleaning state. This will publish a rostopic command '/mirte/progress'.
+Thiese commands correspond to the following states:
+- 0: Stop
+- 1: Cleaning
+- 2: Paused
+
+
 ## Course Usage
 
 This project is developed as part of the TU-Delft course `RO47007 Multidisciplinary Project 2023/24` by group 16. However, while this project is open source and can be used by anyone. Due to the nature of the project and course development, usage comes with the following conditions and social contract.  
@@ -44,6 +64,9 @@ This project is developed as part of the TU-Delft course `RO47007 Multidisciplin
 
 This is to ensure that the original authors and contributors are credited for their work. While following the condition of unique work and plagiarism for the course.
 
+## Dependencies
+- [python-telegram-bot](https://python-telegram-bot.org/)
+- [sound_play](http://wiki.ros.org/sound_play)
 
 ## Contributors
 
